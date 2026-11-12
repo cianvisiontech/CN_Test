@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.env*
+/reference/*.html
+/preview-*
+/preview-server*.log
+/_archive/original-video/
+.DS_Store
+Thumbs.db

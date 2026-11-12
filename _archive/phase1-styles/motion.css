@@ -1,0 +1,79 @@
+/* Motion system: page entrance, scroll reveals, hover depth and the ticker. */
+:root {
+  --motion-ease: cubic-bezier(.22, .72, .18, 1);
+}
+
+.brand-logo { display: block; width: 184px; height: auto; max-height: 46px; object-fit: contain; }
+
+.motion-ready .hero-title span {
+  clip-path: inset(0 0 100% 0);
+  animation: word-reveal 1s var(--motion-ease) forwards;
+}
+.motion-ready .hero-title span:nth-child(2) { animation-delay: .16s; }
+.motion-ready .hero-top,
+.motion-ready .hero-foot { animation: soft-arrive .8s .3s var(--motion-ease) both; }
+.motion-ready .hero-top { animation-delay: .12s; }
+
+@keyframes word-reveal {
+  from { clip-path: inset(0 0 100% 0); transform: translateY(.14em); }
+  to { clip-path: inset(0); transform: translateY(0); }
+}
+@keyframes soft-arrive {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes ticker-travel { to { transform: translateX(-50%); } }
+@keyframes scroll-nudge { 0%,100% { transform: translateY(-2px); } 50% { transform: translateY(3px); } }
+
+.scroll-link i { animation: scroll-nudge 1.8s ease-in-out infinite; }
+.section-head h2, .page-title { text-wrap: balance; }
+.reveal { opacity: 1; transform: none; transition: opacity .8s var(--motion-ease), transform .8s var(--motion-ease); }
+.motion-ready .reveal { opacity: 0; transform: translateY(32px) scale(.99); }
+.motion-ready .reveal.visible { opacity: 1; transform: none; }
+.motion-ready .reveal[data-delay] { transition-delay: var(--reveal-delay, 0ms); }
+
+.service-card, .work-card, .article-card { --pointer-x: 50%; --pointer-y: 50%; }
+.service-card::before, .work-card .work-image::after, .article-card::before {
+  content: ""; position: absolute; pointer-events: none; opacity: 0;
+  transition: opacity .35s ease;
+}
+.service-card::before, .article-card::before {
+  inset: 0; z-index: 0;
+  background: radial-gradient(360px circle at var(--pointer-x) var(--pointer-y), #8445e812, transparent 72%);
+}
+.service-card:hover::before, .article-card:hover::before { opacity: 1; }
+.service-card > *, .article-card > * { position: relative; z-index: 1; }
+.service-card .arrow { transition: transform .35s var(--motion-ease); }
+.service-card:hover .arrow { transform: translate(4px, -4px); }
+.work-image { position: relative; }
+.work-card .work-image::after { inset: 0; background: linear-gradient(135deg,#8445e833,transparent 58%); }
+.work-card:hover .work-image::after { opacity: 1; }
+.work-image img { transition: transform .9s var(--motion-ease), filter .6s ease; }
+.work-card:hover .work-image img { transform: scale(1.055); filter: saturate(1.12); }
+.insight { transition: padding .35s var(--motion-ease), color .25s ease; }
+.insight:hover { padding-left: 12px; color: var(--violet); }
+.button { transition: color .28s ease, background .28s ease, transform .35s var(--motion-ease); }
+
+.signal-strip { overflow: hidden; padding: 19px 0; background: var(--ink); color: var(--paper); }
+.signal-track { display: flex; width: max-content; align-items: center; animation: ticker-travel 34s linear infinite; }
+.signal-group { display: flex; flex: none; align-items: center; gap: clamp(22px,4vw,62px); padding-right: clamp(22px,4vw,62px); white-space: nowrap; }
+.signal-group span { font: 500 12px/1.2 var(--mono); letter-spacing: .14em; text-transform: uppercase; }
+.signal-group i { color: #b887ff; font-size: 18px; font-style: normal; }
+.signal-strip:hover .signal-track { animation-play-state: paused; }
+
+.page-progress { position: fixed; z-index: 50; inset: 0 auto auto 0; width: 0; height: 3px; background: var(--violet); transform-origin: left; pointer-events: none; }
+.site-header { transition: height .35s var(--motion-ease), background .35s ease; }
+.hero-title { transform: translateY(var(--hero-drift, 0px)); will-change: transform; }
+
+@media (max-width: 560px) {
+  .brand-logo { width: 154px; max-height: 40px; }
+  .signal-strip { padding: 16px 0; }
+  .signal-group span { font-size: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+  .motion-ready .hero-title span { clip-path: none; transform: none; }
+  .motion-ready .hero-top, .motion-ready .hero-foot { animation: none; }
+  .signal-track { animation: none; }
+  .page-progress { display: none; }
+}

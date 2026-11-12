@@ -1,0 +1,42 @@
+DirectoryIndex index.html
+Options -Indexes
+
+RewriteEngine On
+
+# Canonical production URL matches content/site.config.json.
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://creativenerds.in%{REQUEST_URI} [R=301,L]
+RewriteCond %{HTTP_HOST} !^creativenerds\.in$ [NC]
+RewriteRule ^ https://creativenerds.in%{REQUEST_URI} [R=301,L]
+
+# Previous service page paths remain resolvable.
+RewriteRule ^brand-strategy\.html$ /services/brand-strategy.html [R=301,L,NC]
+RewriteRule ^website-design-development\.html$ /services/website-design-development.html [R=301,L,NC]
+RewriteRule ^ui-ux-digital-experiences\.html$ /services/ui-ux-digital-experiences.html [R=301,L,NC]
+RewriteRule ^performance-marketing\.html$ /services/performance-marketing.html [R=301,L,NC]
+RewriteRule ^social-media-marketing\.html$ /services/social-media-marketing.html [R=301,L,NC]
+RewriteRule ^seo-organic-growth\.html$ /services/seo-organic-growth.html [R=301,L,NC]
+RewriteRule ^creative-content-production\.html$ /services/creative-content-production.html [R=301,L,NC]
+RewriteRule ^influencer-campaign-marketing\.html$ /services/influencer-campaign-marketing.html [R=301,L,NC]
+
+# Old theme/demo routes.
+RewriteRule ^project-details-v1\.html$ /projects.html [R=301,L,NC]
+RewriteRule ^blog-v1\.html$ /blogs.html [R=301,L,NC]
+RewriteRule ^blog-details\.html$ /blogs.html [R=301,L,NC]
+RewriteRule ^blogs/(?:2/)?blogs\.html$ /blogs.html [R=301,L,NC]
+RewriteRule ^blogs/2/What%20Business%20Goals%20Is%20Your%20Current%20Website%20Not%20Meeting\.html$ /blogs/2/what-business-goals-is-your-current-website-not-meeting.html [R=301,L,NC]
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/javascript application/javascript application/json application/xml image/svg+xml
+</IfModule>
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 30 days"
+  ExpiresByType application/javascript "access plus 30 days"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType video/mp4 "access plus 30 days"
+</IfModule>
+
+ErrorDocument 404 /404.html

@@ -1,0 +1,3 @@
+---
+{"slug":"the-ananta-design-social","client":"The Ananta Design","category":"Social Media Management","categoryKey":"social-media-management","relationship":"Social Media Management","website":null,"instagram":"https://www.instagram.com/the_ananta_design","image":null,"alt":"Approved Ananta Design social creative pending","summary":"Social media management work for The Ananta Design.","overview":"Expanded project information has not yet been supplied.","approach":"A client-approved project description is needed before this section can be completed.","deliverables":[],"results":null,"placeholder":"Approved social creative and project details are still needed."}
+---

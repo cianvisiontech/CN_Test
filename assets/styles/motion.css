@@ -1,0 +1,40 @@
+@keyframes ticker-move{to{transform:translateX(-50%)}}
+@keyframes hero-word-in{from{clip-path:inset(0 0 100%);transform:translateY(.12em)}to{clip-path:inset(0);transform:none}}
+@keyframes hero-copy-in{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes scroll-bob{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}
+@keyframes check-in{from{transform:scale(.45) rotate(-18deg);opacity:0}to{transform:scale(1);opacity:1}}
+.page-progress{position:fixed;z-index:100;inset:0 auto auto 0;width:0;height:3px;background:var(--violet);pointer-events:none}
+.hero-display{will-change:transform}
+.scroll-dot{animation:scroll-bob 1.8s ease-in-out infinite}
+.js-ready .reveal{opacity:0;transform:translateY(28px);transition:opacity .72s var(--ease),transform .72s var(--ease);transition-delay:var(--reveal-delay,0ms)}
+.js-ready .reveal.visible{opacity:1;transform:none}
+.reveal-text{animation:hero-word-in .95s var(--ease) both}
+.hero-topline,.hero-subline,.hero-actions{animation:hero-copy-in .75s .22s var(--ease) both}
+.image-reveal{clip-path:inset(0 0 100% 0);transition:clip-path 1s var(--ease)}
+.image-reveal.visible{clip-path:inset(0)}
+.service-card,.project-card,.pillar-card{--spot-x:50%;--spot-y:50%}
+.pillar-card::before,.project-card::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;background:radial-gradient(380px circle at var(--spot-x) var(--spot-y),#862af110,transparent 70%);transition:opacity .3s ease}
+.pillar-card:hover::before,.project-card:hover::before{opacity:1}
+.pillar-card>*{position:relative}
+.project-visual img{transition:transform .85s var(--ease),filter .6s ease}
+.project-card:hover .project-visual img{transform:scale(1.05);filter:saturate(1.08)}
+.process-timeline li::before{content:"";position:absolute;left:0;top:-29px;width:8px;height:8px;border-radius:50%;background:var(--paper);border:1px solid var(--violet);transition:background .3s ease,transform .3s var(--ease)}
+.process-timeline li.visible::before{background:var(--violet);transform:scale(1.35)}
+.faq-list details[open]{animation:hero-copy-in .25s ease both}
+.confirmation-mark{animation:check-in .45s var(--ease) both}
+.js .reveal{opacity:0;transform:translateY(28px);transition:opacity .72s var(--ease),transform .72s var(--ease);transition-delay:var(--reveal-delay,0ms)}
+.js .reveal.visible{opacity:1;transform:none}
+.js .image-reveal{clip-path:inset(0 0 100% 0);transition:clip-path 1s var(--ease)}
+.js .image-reveal.visible{clip-path:inset(0)}
+.wordmark-stage{--reveal-x:50%;--reveal-y:50%;--reveal-radius:3vmax}
+.video-reveal{position:absolute;inset:0;z-index:2;overflow:hidden;clip-path:circle(var(--reveal-radius) at var(--reveal-x) var(--reveal-y));pointer-events:none;will-change:clip-path}
+.video-reveal video{width:100%;height:100%;object-fit:cover}
+.hero-transition-copy{position:absolute;z-index:3;opacity:0;pointer-events:none}
+@media(prefers-reduced-motion:reduce){.js .reveal{opacity:1;transform:none}.js .image-reveal{clip-path:none}.video-reveal{clip-path:none!important}}
+@view-transition{navigation:auto}
+::view-transition-old(root){animation:page-leave .18s ease both}
+::view-transition-new(root){animation:hero-copy-in .28s ease both}
+@keyframes page-leave{to{opacity:.72;transform:translateY(-4px)}}
+@media(pointer:fine){.custom-cursor{position:fixed;z-index:200;width:12px;height:12px;left:0;top:0;border-radius:50%;background:var(--violet);pointer-events:none;transform:translate(-50%,-50%);mix-blend-mode:multiply;opacity:0;transition:width .2s,height .2s,opacity .2s}.cursor-active .custom-cursor{opacity:1}.cursor-hover .custom-cursor{width:25px;height:25px}}
+@media(max-width:850px){.ticker-track{animation-duration:42s}.project-card[data-tilt]{transform:none!important}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.js-ready .reveal{opacity:1;transform:none}.image-reveal{clip-path:none}.ticker-track{animation:none}.scroll-dot{animation:none}.page-progress{display:none}.video-reveal{clip-path:none!important;opacity:1!important}}

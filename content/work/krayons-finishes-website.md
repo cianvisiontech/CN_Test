@@ -1,0 +1,3 @@
+---
+{"slug":"krayons-finishes-website","client":"Krayons Finishes","category":"Website Development","categoryKey":"website-development","relationship":"Website Development","website":"https://krayonsfinishes.com/","instagram":null,"image":null,"alt":"Preview image for Krayons Finishes website project","summary":"Website development work for Krayons Finishes.","overview":"Expanded project information has not yet been supplied.","approach":"A client-approved project description is needed before this section can be completed.","deliverables":[],"results":null,"placeholder":"Website screenshots and approved project details are still needed."}
+---

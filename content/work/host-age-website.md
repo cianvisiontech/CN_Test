@@ -1,0 +1,3 @@
+---
+{"slug":"host-age-website","client":"Host-Age","category":"Website Development","categoryKey":"website-development","relationship":"Website Development","website":"https://host-age.in/","instagram":null,"image":null,"alt":"Preview image for Host-Age website project","summary":"Website development work for Host-Age.","overview":"Expanded project information has not yet been supplied.","approach":"A client-approved project description is needed before this section can be completed.","deliverables":[],"results":null,"placeholder":"Website screenshots and approved project details are still needed."}
+---

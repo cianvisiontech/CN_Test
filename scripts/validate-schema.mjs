@@ -1,0 +1,3 @@
+import fs from 'node:fs/promises';import path from 'node:path';let errors=[];let count=0;
+async function walk(d){for(const e of await fs.readdir(d,{withFileTypes:true})){const p=path.join(d,e.name);if(e.isDirectory())await walk(p);else if(e.name.endsWith('.html')){const h=await fs.readFile(p,'utf8');for(const m of h.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)){count++;try{JSON.parse(m[1])}catch(err){errors.push(`${path.relative('dist',p)}: invalid JSON-LD: ${err.message}`)}}if(!h.includes('application/ld+json'))errors.push(`${path.relative('dist',p)}: schema missing`)}}}
+await walk('dist');if(errors.length){console.error(errors.join('\n'));process.exitCode=1}else console.log(`Parsed JSON-LD in ${count} structured data blocks.`);

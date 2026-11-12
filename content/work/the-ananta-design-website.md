@@ -1,0 +1,3 @@
+---
+{"slug":"the-ananta-design-website","client":"The Ananta Design","category":"Website Development","categoryKey":"website-development","relationship":"Website Development","website":"https://theanantadesign.com/","instagram":null,"image":null,"alt":"Preview image for The Ananta Design website project","summary":"Website development work for The Ananta Design.","overview":"Expanded project information has not yet been supplied.","approach":"A client-approved project description is needed before this section can be completed.","deliverables":[],"results":null,"placeholder":"Website screenshots and approved project details are still needed."}
+---

@@ -1,0 +1,3 @@
+---
+{"slug":"oro-hair-and-nails-social","client":"Oro Hair & Nails","category":"Social Media Management","categoryKey":"social-media-management","relationship":"Social Media Management","website":null,"instagram":"https://www.instagram.com/orohairandnails","image":null,"alt":"Approved Oro Hair & Nails social creative pending","summary":"Social media management work for Oro Hair & Nails.","overview":"Expanded project information has not yet been supplied.","approach":"A client-approved project description is needed before this section can be completed.","deliverables":[],"results":null,"placeholder":"Approved social creative and project details are still needed."}
+---

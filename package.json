@@ -1,0 +1,11 @@
+{
+  "name": "creative-nerds-site",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Static Creative Nerds website builder for Bluehost Apache hosting",
+  "scripts": {
+    "build": "node src/build.mjs",
+    "dev": "node tools/preview-server.mjs dist",
+    "check": "node scripts/check-links.mjs && node scripts/validate-seo.mjs && node scripts/validate-schema.mjs"
+  }
+}

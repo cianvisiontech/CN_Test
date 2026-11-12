@@ -1,0 +1,27 @@
+/* Shared article layout for the retained published journal pages. */
+.container{width:min(1200px,calc(100% - 40px));margin-inline:auto}
+.container.lg{width:min(1200px,calc(100% - 40px))}
+.row{display:flex;flex-wrap:wrap;justify-content:center}
+.col-lg-8{width:min(100%,900px)}
+.offcanvas.sidebar-nav{display:none!important}
+.theme-main-menu{background:#f5f3eeeb!important;backdrop-filter:blur(14px);border-bottom:1px solid #17171712}
+.blog-details{padding:145px 0 100px!important}
+.blog-details>.container.lg{max-width:1200px}
+.blog-details>.container>.row{justify-content:center}
+.blog-details .col-lg-8{width:100%;max-width:900px;margin-inline:auto;flex:0 0 100%}
+.blog-details .col-lg-4{display:none}
+.blog-details-meta .media img{width:100%;height:auto;max-height:540px;object-fit:cover;border-radius:4px}
+.blog-details-meta .media .tag{background:#f5f3ee!important;color:#171717!important;border-radius:30px;padding:9px 13px}
+.blog-details-meta .author{color:#77736d}
+.blog-details-meta h1{font:500 clamp(40px,7vw,84px)/.98 CN,Arial,sans-serif;letter-spacing:-.07em;margin:22px 0 32px}
+.blog-details-meta .post{max-width:760px;margin:0 auto;font:400 18px/1.75 CN,Arial,sans-serif;color:#292929}
+.blog-details-meta .post h2{font:500 clamp(26px,4vw,38px)/1.08 CN,Arial,sans-serif;letter-spacing:-.04em;margin:42px 0 15px;color:#171717}
+.blog-details-meta .post h3{font:500 23px/1.2 CN,Arial,sans-serif;margin:32px 0 12px}
+.blog-details-meta .post p{margin:0 0 22px}
+.blog-details-meta .post a{color:#7041c7!important;text-decoration:underline;text-underline-offset:3px}
+.blog-details-meta .post img{height:auto;max-width:100%;margin:30px auto;border-radius:4px}
+.blog-details-meta .post blockquote{border-left:2px solid #8445e8;padding:8px 0 8px 22px;margin:28px 0;color:#5d5961}
+.footer-three{background:#171717!important;color:#fff!important;padding:0!important}
+.footer-three .shapes,.footer-three .newsletter-form{display:none!important}
+@media(max-width:850px){.blog-details{padding-top:120px!important}.blog-details-meta .post{font-size:17px;line-height:1.7}}
+@media(max-width:560px){.blog-details{padding:105px 0 70px!important}.blog-details-meta h1{font-size:42px}.blog-details-meta .post{font-size:16px;line-height:1.68}}
