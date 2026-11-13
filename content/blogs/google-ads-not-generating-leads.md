@@ -4,7 +4,7 @@
   "slug": "google-ads-not-generating-leads",
   "url": "/blogs/google-ads-not-generating-leads.html",
   "oldUrl": null,
-  "description": "Google Ads not generating leads despite a big budget? Here",
+  "description": "Google Ads not generating leads despite a big budget? Here's why spend and results drift apart, and what to check first.",
   "category": "Search",
   "date": "2026-08-05",
   "image": "/assets/images/journal/google-ads-not-generating-leads-cover.png",

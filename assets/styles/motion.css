@@ -4,7 +4,6 @@
 @keyframes scroll-bob{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}
 @keyframes check-in{from{transform:scale(.45) rotate(-18deg);opacity:0}to{transform:scale(1);opacity:1}}
 .page-progress{position:fixed;z-index:100;inset:0 auto auto 0;width:0;height:3px;background:var(--violet);pointer-events:none}
-.hero-display{will-change:transform}
 .scroll-dot{animation:scroll-bob 1.8s ease-in-out infinite}
 .js-ready .reveal{opacity:0;transform:translateY(28px);transition:opacity .72s var(--ease),transform .72s var(--ease);transition-delay:var(--reveal-delay,0ms)}
 .js-ready .reveal.visible{opacity:1;transform:none}
@@ -26,11 +25,7 @@
 .js .reveal.visible{opacity:1;transform:none}
 .js .image-reveal{clip-path:inset(0 0 100% 0);transition:clip-path 1s var(--ease)}
 .js .image-reveal.visible{clip-path:inset(0)}
-.wordmark-stage{--reveal-x:50%;--reveal-y:50%;--reveal-radius:3vmax}
-.video-reveal{position:absolute;inset:0;z-index:2;overflow:hidden;clip-path:circle(var(--reveal-radius) at var(--reveal-x) var(--reveal-y));pointer-events:none;will-change:clip-path}
-.video-reveal video{width:100%;height:100%;object-fit:cover}
-.hero-transition-copy{position:absolute;z-index:3;opacity:0;pointer-events:none}
-@media(prefers-reduced-motion:reduce){.js .reveal{opacity:1;transform:none}.js .image-reveal{clip-path:none}.video-reveal{clip-path:none!important}}
+@media(prefers-reduced-motion:reduce){.js .reveal{opacity:1;transform:none}.js .image-reveal{clip-path:none}}
 @view-transition{navigation:auto}
 ::view-transition-old(root){animation:page-leave .18s ease both}
 ::view-transition-new(root){animation:hero-copy-in .28s ease both}
@@ -38,3 +33,30 @@
 @media(pointer:fine){.custom-cursor{position:fixed;z-index:200;width:12px;height:12px;left:0;top:0;border-radius:50%;background:var(--violet);pointer-events:none;transform:translate(-50%,-50%);mix-blend-mode:multiply;opacity:0;transition:width .2s,height .2s,opacity .2s}.cursor-active .custom-cursor{opacity:1}.cursor-hover .custom-cursor{width:25px;height:25px}}
 @media(max-width:850px){.ticker-track{animation-duration:42s}.project-card[data-tilt]{transform:none!important}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.js-ready .reveal{opacity:1;transform:none}.image-reveal{clip-path:none}.ticker-track{animation:none}.scroll-dot{animation:none}.page-progress{display:none}.video-reveal{clip-path:none!important;opacity:1!important}}
+
+/* ===== Capabilities: interactive cards ===== */
+.pillar-card{transition:color .45s var(--ease)}
+.pillar-card::before{z-index:1;background:radial-gradient(420px circle at var(--spot-x) var(--spot-y),#862af155,transparent 65%)!important}
+.pillar-card::after{content:"";position:absolute;inset:0;z-index:0;background:var(--ink);transform:translateY(101%);transition:transform .6s var(--ease)}
+.pillar-card:hover::after,.pillar-card:focus-visible::after{transform:none}
+.pillar-card>*{position:relative;z-index:2}
+.pillar-card .card-index{display:inline-block;color:var(--orange);font-size:22px;line-height:1;transition:transform .8s var(--ease),color .4s}
+.pillar-card:hover .card-index{transform:rotate(180deg) scale(1.25)}
+.pillar-card h3{transition:transform .55s var(--ease),color .4s}
+.pillar-card p{transition:color .4s,transform .55s var(--ease) .04s}
+.pillar-card .text-link{display:inline-flex;margin-top:22px;transition:transform .55s var(--ease) .08s,color .4s;color:var(--violet)}
+.pillar-card:hover h3{color:#fff;transform:translateX(10px)}
+.pillar-card:hover p{color:#cfcac2;transform:translateX(10px)}
+.pillar-card:hover .text-link{color:var(--orange);transform:translateX(10px)}
+.pillar-card .pillar-arrow{z-index:2}
+.pillar-card::before{opacity:0}
+.pillar-card:hover::before{opacity:1}
+/* capabilities ticker */
+.ticker{padding:22px 0;border-block:1px solid #ffffff14}
+.ticker-group span{font:500 clamp(15px,1.6vw,22px) var(--font-body);letter-spacing:-.02em;text-transform:none;transition:color .3s,transform .4s var(--ease);cursor:default}
+.ticker-group span:nth-of-type(even){color:transparent;-webkit-text-stroke:1px #f5f3ee99}
+.ticker-group span:hover{color:var(--orange);-webkit-text-stroke:0;transform:scale(1.12) skewX(-6deg)}
+.ticker-group i{display:inline-block;animation:spin-star 6s linear infinite}
+@keyframes spin-star{to{transform:rotate(360deg)}}
+@media(max-width:560px){.pillar-card,.pillar-card:nth-child(even){padding:24px;border-left:0}}
+@media(hover:none){.pillar-card::after{display:none}.pillar-card:hover h3,.pillar-card:hover p,.pillar-card:hover .text-link{transform:none;color:inherit}}

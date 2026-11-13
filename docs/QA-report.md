@@ -10,7 +10,7 @@
 
 ## Manual browser checks
 
-The local preview returned HTTP 200 with the generated homepage at `http://127.0.0.1:4177/`. The browser automation sandbox timed out when opening its localhost URL, so a visual screenshot and interactive browser pass did not complete. Do not report Lighthouse scores until the site is accessible to Lighthouse on the deployment or a local browser.
+The local preview returned HTTP 200 for the homepage, journal stylesheet, portal and card-interaction scripts, video, and blog index at `http://127.0.0.1:4177/`. The browser automation tool stopped because it could not verify the current browser URL, so a visual screenshot and interactive browser pass did not complete. Do not report Lighthouse scores until the site is accessible to Lighthouse on the deployment or a local browser.
 
 ## Known constraints
 

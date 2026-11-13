@@ -4,7 +4,7 @@
   "slug": "why-is-my-instagram-reach-so-low",
   "url": "/blogs/why-is-my-instagram-reach-so-low.html",
   "oldUrl": null,
-  "description": "Your reach didn",
+  "description": "Your reach didn't drop for no reason. Here's the real 2026 Instagram algorithm shift behind it, and what actual Instagram marketing looks like now.",
   "category": "Marketing",
   "date": "2026-07-30",
   "image": "/assets/images/journal/why-is-my-instagram-reach-so-low-cover.png",

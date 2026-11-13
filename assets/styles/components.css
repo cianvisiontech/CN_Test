@@ -21,8 +21,8 @@
 .split-section h2 em{color:var(--violet);font-family:Georgia,serif;font-weight:400}
 .split-section p{font-size:18px;max-width:620px}
 .pillar-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--line)}
-.pillar-card{position:relative;min-height:230px;padding:28px 28px 27px 0;border-bottom:1px solid var(--line);overflow:hidden}
-.pillar-card:nth-child(even){padding-left:30px;border-left:1px solid var(--line)}
+.pillar-card{position:relative;isolation:isolate;display:block;min-height:250px;padding:32px;border-bottom:1px solid var(--line);overflow:hidden}
+.pillar-card:nth-child(even){border-left:1px solid var(--line)}
 .pillar-card .pillar-index{font:10px var(--font-mono);letter-spacing:.12em;color:var(--muted)}
 .pillar-card h3{font-size:clamp(29px,3.5vw,48px);line-height:1;letter-spacing:-.055em;font-weight:500;margin:38px 0 8px}
 .pillar-card p{max-width:480px;color:var(--muted);margin:0}

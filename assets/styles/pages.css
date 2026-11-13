@@ -4,31 +4,8 @@
 .hero-heading{max-width:1040px;font-size:clamp(46px,8vw,112px);font-weight:500;letter-spacing:-.075em;line-height:.94;margin:16px 0 22px;text-wrap:balance}
 .hero-subline{max-width:570px;color:var(--muted);font-size:clamp(17px,2vw,22px);margin:0}
 .hero-actions{display:flex;align-items:center;gap:24px;margin-top:28px}
-.hero-display{position:relative;z-index:1;width:100%;margin:clamp(58px,10vh,128px) 0 0;font-size:clamp(86px,18.8vw,252px);font-weight:700;line-height:.72;letter-spacing:-.085em;white-space:nowrap}
-.hero-display span{display:block;margin-left:clamp(10px,8vw,110px);color:var(--violet);letter-spacing:-.065em}
 .scroll-link{display:flex;align-items:center;gap:11px;margin:30px 0 0 auto;font:9px var(--font-mono);letter-spacing:.12em;text-transform:uppercase}
 .scroll-dot{display:grid;place-items:center;width:36px;height:36px;border:1px solid var(--line);border-radius:50%;font-size:14px}
-.wordmark-reveal{position:relative;height:225svh;background:var(--paper)}
-.wordmark-stage{position:sticky;top:0;height:100svh;min-height:560px;overflow:hidden;background:var(--paper)}
-.wordmark-topline{position:absolute;z-index:8;top:calc(var(--header-height) + 18px);left:var(--wrap);right:var(--wrap);display:flex;justify-content:space-between;gap:18px;color:var(--muted);text-transform:uppercase}
-.wordmark-center{position:absolute;z-index:5;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:calc(var(--header-height) + 30px) 2vw 54px;pointer-events:none}
-.brand-wordmark{display:block;width:100%;margin:0;position:relative;z-index:5;font-size:clamp(52px,12.5vw,174px);font-weight:700;line-height:.84;letter-spacing:-.085em;text-align:center;text-transform:uppercase;color:var(--ink);white-space:nowrap}
-.word-line{display:flex;justify-content:center;align-items:center;min-height:.84em;line-height:.84;white-space:nowrap}
-.char{position:relative;display:inline-block;flex:none;margin-right:-.065em;transform-origin:50% 50%;color:var(--ink)}
-.purple-line .char{color:var(--violet)}
-.word-line .char:last-child{margin-right:0}
-.a-glyph{width:.67em;height:.84em;vertical-align:middle;margin-inline:-.015em -.065em;color:var(--ink)}
-.a-glyph svg{display:block;width:100%;height:100%;overflow:visible}
-.wordmark-note{display:flex;justify-content:space-between;align-items:center;gap:26px;width:min(820px,76vw);margin-top:34px;color:var(--muted)}
-.wordmark-note p{max-width:310px;font-size:14px;line-height:1.6;margin:0}
-.wordmark-note .micro{font-size:9px;letter-spacing:.1em;text-transform:uppercase}
-.video-reveal{position:absolute;z-index:3;inset:0;width:100%;height:100%;overflow:hidden;opacity:0;clip-path:polygon(50% 25.6%,61% 53.6%,39% 53.6%,50% 25.6%);background:#111;will-change:clip-path,opacity;pointer-events:none}
-.video-reveal video{width:100%;height:100%;object-fit:cover;object-position:center;background:#111;transform:scale(1);transform-origin:50% 40%;will-change:transform}
-.hero-transition-copy{position:absolute;z-index:7;bottom:9%;left:7%;color:white;opacity:0;pointer-events:none;transform:translateY(18px);will-change:opacity,transform}
-.hero-transition-copy h2{font-size:clamp(48px,8vw,112px);line-height:.86;letter-spacing:-.08em;font-weight:500;margin:14px 0 0}
-.hero-transition-copy h2 em{color:#d9b9ff;font-family:Georgia,serif;font-weight:400}
-.hero-progress{position:absolute;z-index:12;bottom:0;left:0;height:3px;width:0;background:var(--violet)}
-.hero-side-label{position:absolute;z-index:8;right:28px;bottom:30px;writing-mode:vertical-rl;font:8px var(--font-mono);letter-spacing:.14em;color:#85817b}
 .page-hero{padding-top:calc(var(--header-height) + clamp(70px,10vw,130px));padding-bottom:clamp(48px,8vw,100px)}
 .page-title{max-width:1100px;font-size:clamp(54px,10vw,132px);font-weight:500;line-height:.88;letter-spacing:-.085em;margin:19px 0 20px;text-wrap:balance}
 .page-title em{color:var(--violet);font-family:Georgia,serif;font-weight:400}
@@ -71,5 +48,29 @@
 .form-wide{grid-column:1/-1}
 .form-note{display:none;color:var(--muted);font-size:12px;margin:0}
 .preview-mode .form-note{display:block}
-@media(max-width:850px){.hero-heading{font-size:clamp(47px,8.5vw,82px)}.hero-display{font-size:clamp(88px,17vw,150px)}.brand-wordmark{font-size:clamp(50px,12vw,100px)}.about-feature,.contact-layout,.case-details{grid-template-columns:1fr;gap:32px}.contact-aside{position:static}.values-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:850px){.hero-heading{font-size:clamp(47px,8.5vw,82px)}.about-feature,.contact-layout,.case-details{grid-template-columns:1fr;gap:32px}.contact-aside{position:static}.values-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.hero{min-height:calc(92svh - var(--header-height));padding-bottom:32px}.hero-topline{font-size:7px;gap:10px}.hero-topline span:last-child{text-align:right}.hero-copy{margin-top:48px}.hero-heading{font-size:clamp(43px,12vw,62px);line-height:.96}.hero-subline{font-size:16px}.hero-actions{gap:18px;align-items:flex-start;flex-direction:column}.hero-display{font-size:clamp(76px,17.6vw,110px);margin-top:76px;letter-spacing:-.06em}.hero-display span{margin-left:5vw;letter-spacing:-.055em}.scroll-link{margin-top:22px}.wordmark-reveal{height:170svh}.wordmark-stage{height:100svh;min-height:580px}.wordmark-topline{font-size:7px;top:calc(var(--header-height) + 12px)}.brand-wordmark{font-size:clamp(41px,11vw,68px);letter-spacing:-.07em}.a-glyph{margin-right:-.055em}.wordmark-note{width:88vw;flex-direction:column;align-items:flex-start;gap:10px;margin-top:24px}.wordmark-note p{max-width:230px;font-size:12px}.hero-side-label{right:10px;bottom:24px;font-size:6px}.hero-transition-copy{left:6%;bottom:12%}.hero-transition-copy h2{font-size:50px}.page-hero{padding-top:calc(var(--header-height) + 70px)}.page-title{font-size:clamp(48px,14vw,76px)}.about-image{aspect-ratio:1.2}.values-grid{grid-template-columns:1fr 1fr;gap:14px}.values-grid h2{font-size:20px;margin-top:26px}.project-form{grid-template-columns:1fr}.form-wide{grid-column:auto}}
+
+/* ===== Video portal: the video lives inside the A of CREATIVE NERDS ===== */
+.portal{position:relative;height:320svh;background:var(--paper)}
+.portal-stage{position:sticky;top:0;height:100svh;min-height:520px;overflow:hidden;background:var(--paper)}
+.portal-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#111}
+.portal-wordmark{position:absolute;inset:0;width:100%;height:100%;z-index:2;overflow:visible;pointer-events:none}
+.portal-scrim{position:absolute;inset:0;z-index:3;opacity:0;pointer-events:none;background:linear-gradient(0deg,#111c,transparent 60%),linear-gradient(90deg,#1118,transparent 70%)}
+.portal-copy{position:absolute;z-index:4;left:var(--wrap-pad,6vw);bottom:9vh;color:#fff;opacity:0;pointer-events:none}
+.portal-copy .micro{font:10px var(--font-mono);letter-spacing:.14em;text-transform:uppercase;color:#d9b9ff}
+.portal-copy h2{font-size:clamp(46px,8vw,112px);line-height:.88;letter-spacing:-.08em;font-weight:500;margin:14px 0 0}
+.portal-copy h2 em{color:#d9b9ff;font-family:Georgia,serif;font-weight:400}
+.portal-hint{position:absolute;z-index:4;left:0;right:0;bottom:6vh;display:flex;flex-direction:column;align-items:center;gap:12px;font:10px var(--font-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.portal-hint span{display:block;width:1px;height:38px;background:linear-gradient(var(--violet),transparent);animation:hint-drop 1.8s ease-in-out infinite}
+.portal-track{position:absolute;z-index:5;left:0;bottom:0;height:3px;width:0;background:var(--violet)}
+@keyframes hint-drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+/* ===== MAKE MATTER. statement (sits under the video) ===== */
+.make-matter{padding:clamp(70px,12vw,170px) 0 clamp(40px,7vw,100px);overflow:hidden;background:var(--paper)}
+.mm-line{margin:0;font-size:clamp(88px,19vw,270px);font-weight:700;line-height:.8;letter-spacing:-.07em;white-space:nowrap;will-change:transform;transform:translateX(var(--mm-x,0))}
+.mm-line span{display:inline-block;clip-path:inset(0 0 100% 0);transform:translateY(.25em);transition:clip-path 1s var(--ease),transform 1s var(--ease)}
+.make-matter.in-view .mm-line span{clip-path:inset(0);transform:none}
+.mm-b{color:var(--violet);margin-top:.04em;--mm-x:0}
+.mm-b span{transition-delay:.18s}
+@media(max-width:560px){.portal{height:280svh}}
+@media(prefers-reduced-motion:reduce){.portal{height:100svh}.portal-wordmark,.portal-hint{display:none}.portal-copy,.portal-scrim{opacity:1!important}.mm-line span{clip-path:none;transform:none}}

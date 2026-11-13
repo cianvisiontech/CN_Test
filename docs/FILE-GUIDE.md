@@ -44,7 +44,8 @@
 - `scripts/main.js` — starts the site's client-side interactions and fills the copyright year.
 - `scripts/navigation.js` — mobile menu open/close and keyboard behavior.
 - `scripts/scroll-effects.js` — shared IntersectionObserver reveal setup and the single scroll/resize animation frame.
-- `scripts/portal-reveal.js` — ties the video reveal radius to the A glyph and scroll position; starts and pauses the muted reel.
+- `scripts/portal-reveal.js` — scales the inline SVG wordmark toward its A counter as the page scrolls, revealing the video through the A mask; also animates the oversized “MAKE MATTER” copy.
+- `scripts/interactions.js` — adds pointer spotlights to capability, work and journal cards and a gentle tilt to journal cards on desktop; it respects reduced-motion settings.
 - `scripts/portfolio-filter.js` — filters project cards by website or social category.
 - `scripts/contact-form.js` — validates the enquiry form and either posts to a configured endpoint or opens a prefilled email draft.
 - `scripts/preview-placeholders.js` — enables optional owner-only preview markers with `?preview=1`.
@@ -64,9 +65,11 @@
 ## Animation guide
 
 - Homepage hero copy enters with a short text reveal.
-- The oversized wordmark section is pinned during scrolling. A muted video starts clipped around the custom A glyph and grows outward with scroll progress.
+- The oversized SVG wordmark section stays pinned while the A-shaped mask expands to reveal the muted studio video; the letters scale toward the A as the scroll continues.
+- “MAKE MATTER” slides into view below the video portal, with separate horizontal movement for each line.
 - The capabilities ticker moves horizontally and pauses for reduced-motion preferences.
 - Section cards and headings reveal when they enter the viewport.
 - Project images scale subtly on hover; card filtering works without a reload.
+- Capability, project and journal cards show a pointer spotlight; journal cards gently tilt on desktop.
 - The mobile menu expands in place, and honors Escape and link selection.
 - `prefers-reduced-motion` disables large transitions and the ticker, and keeps content visible.
