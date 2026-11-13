@@ -71,6 +71,18 @@ function serviceFor(slug) {
   return ['Brand Strategy', '/brand-strategy.html'];
 }
 
+function htmlEscape(value) {
+  return String(value).replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
+}
+
+function sourceDocument(metadata, body) {
+  const fields = Object.entries(metadata).map(([key, value]) => {
+    const content = typeof value === 'string' ? value : JSON.stringify(value);
+    return `    <meta name="cn:${htmlEscape(key)}" content="${htmlEscape(content)}">`;
+  }).join('\n');
+  return `<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1">\n  <title>${htmlEscape(metadata.title)}</title>\n  <meta name="description" content="${htmlEscape(metadata.description)}">\n${fields}\n</head>\n<body>\n${body}\n</body>\n</html>\n`;
+}
+
 await mkdir(contentRoot, { recursive: true });
 let pages = await htmlFiles(sourceRoot);
 const candidates = [];
@@ -102,19 +114,19 @@ for (const file of pages) {
     .replace(/(?:\.\.\/)*images\/(?:blog|journal)\//g, '/assets/images/journal/')
     .replace(/(?:\.\.\/)*images\/(?:logo|fav-icon)\//g, '/assets/images/brand/')
     .replace(/href=["'](?:\.\.\/)*blogs\.html["']/gi, 'href="/blogs.html"');
-  const output = join(contentRoot, isSecondDirectory ? '2' : '', `${sourceSlug}.md`);
+  const output = join(contentRoot, isSecondDirectory ? '2' : '', `${sourceSlug}.html`);
   await mkdir(dirname(output), { recursive: true });
-  await writeFile(output, `---\n${JSON.stringify(metadata, null, 2)}\n---\n\n${rewritten.trim()}\n`, 'utf8');
+  await writeFile(output, sourceDocument(metadata, rewritten.trim()), 'utf8');
   candidates.push({ slug: sourceSlug, route, title, date: metadata.date, image, source: originalRelative });
 }
 
 for (let index = 0; index < candidates.length; index += 1) {
   const article = candidates[index];
   const related = [1, 2, 3].map(offset => candidates[(index + offset) % candidates.length].slug);
-  const file = join(contentRoot, article.route.includes('/2/') ? '2' : '', `${article.slug}.md`);
+  const file = join(contentRoot, article.route.includes('/2/') ? '2' : '', `${article.slug}.html`);
   let text = await readFile(file, 'utf8');
-  text = text.replace(/("serviceUrl":\s*"[^"]*")/, `$1,\n  "related": ${JSON.stringify(related)}`);
+  text = text.replace(/(<meta name="cn:serviceUrl" content="[^"]*">)/, `$1\n    <meta name="cn:related" content="${htmlEscape(JSON.stringify(related))}">`);
   await writeFile(file, text, 'utf8');
 }
 
-console.log(`Migrated ${candidates.length} articles to Markdown with original dates, titles, route paths and article HTML preserved.`);
+console.log(`Migrated ${candidates.length} articles to editable HTML source documents with original dates, titles, route paths and article content preserved.`);

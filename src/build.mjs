@@ -14,6 +14,17 @@ await fs.rm(out, { recursive: true, force: true });
 await fs.mkdir(out, { recursive: true });
 const put = async (url, html) => { const dest = path.join(out, url === '/' ? 'index.html' : url.replace(/^\//, '')); await fs.mkdir(path.dirname(dest), {recursive:true}); await fs.writeFile(dest, html); };
 const files = async (dir, ext) => (await fs.readdir(path.join(root, dir), {withFileTypes:true})).filter(x => x.isFile() && x.name.endsWith(ext)).map(x => path.join(dir,x.name));
+const decodeHtml = (value='') => value.replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
+const readHtmlRecord = async (file) => {
+ const html=await fs.readFile(path.join(root,file),'utf8');
+ const data={};
+ for(const match of html.matchAll(/<meta\s+name=["']cn:([^"']+)["']\s+content=["']([\s\S]*?)["']\s*(?:\/>|>)/gi)){
+  const value=decodeHtml(match[2]);
+  try{data[match[1]]=JSON.parse(value);}catch{data[match[1]]=value;}
+ }
+ const body=html.match(/<body\b[^>]*>([\s\S]*?)<\/body>/i)?.[1]||'';
+ return {data,body};
+};
 const copyPath = async (rel) => { const source=path.join(root,rel);const dest=path.join(out,rel);await fs.mkdir(path.dirname(dest),{recursive:true});await fs.copyFile(source,dest); };
 const copyDir = async (from, to) => { try { await fs.cp(path.join(root,from), path.join(out,to), {recursive:true}); } catch (e) { if (e.code !== 'ENOENT') throw e; } };
 
@@ -36,9 +47,9 @@ const serviceJsons = (await Promise.all((await files('content/services','.json')
 const serviceCards = serviceJsons.map((s,i) => `<a class="pillar-card reveal" style="--reveal-delay:${(i%2)*90+Math.floor(i/2)*60}ms" href="/services/${esc(s.slug)}.html"><span class="card-index">${esc(s.number || '✳')}</span><h3>${esc(s.title)}</h3><p>${esc(s.intro)}</p><span class="text-link">Explore service ↗</span></a>`).join('');
 const clients = await json('content/clients.json');
 const clientList = clients.map(c => `<span>${esc(c.name)}</span>`).join('');
-const workFiles = await files('content/work','.md');
-const works = await Promise.all(workFiles.map(async f => { const raw=await fs.readFile(path.join(root,f),'utf8'); const m=raw.match(/^---\s*\r?\n([\s\S]*?)\r?\n---\s*\r?\n([\s\S]*)$/); return m ? {data:JSON.parse(m[1]),body:m[2]} : null; }));
-const validWorks = works.filter(Boolean).map(w=>{ const d=w.data; return { ...w, data:{...d, slug:d.slug||path.basename(workFiles[works.indexOf(w)]||'work.md','.md'), category:d.categoryKey||String(d.category||'').toLowerCase().replace(/\s+/g,'-'), categoryLabel:d.category, image:d.image?.replace('/assets/images/portfolio/fce.png','/assets/images/portfolio/famos-cine-equipments-content.png').replace('/assets/images/portfolio/ns.png','/assets/images/portfolio/nail-social-kandivali-content.png'), imageAlt:d.alt, summary:d.summary||d.overview, bodySummary:d.approach, clientUrl:d.website||d.instagram}}; });
+const workFiles = await files('content/work','.html');
+const works = await Promise.all(workFiles.map(readHtmlRecord));
+const validWorks = works.map((w,i)=>{ const d=w.data; return { ...w, data:{...d, slug:d.slug||path.basename(workFiles[i],'.html'), category:d.categoryKey||String(d.category||'').toLowerCase().replace(/\s+/g,'-'), categoryLabel:d.category, image:d.image?.replace('/assets/images/portfolio/fce.png','/assets/images/portfolio/famos-cine-equipments-content.png').replace('/assets/images/portfolio/ns.png','/assets/images/portfolio/nail-social-kandivali-content.png'), imageAlt:d.alt, summary:d.summary||d.overview, bodySummary:d.approach, clientUrl:d.website||d.instagram}}; });
 const projectCard = (w) => { const d=w.data; const image=d.image ? `<img src="${esc(d.image)}" alt="${esc(d.imageAlt || d.client+' project')}" loading="lazy">` : `<div class="project-placeholder"><span>${esc(d.client)}</span><small>Project imagery to be added</small></div>`; return `<article class="project-card reveal" data-project-category="${esc(d.category)}"><a class="project-visual" href="/work/${esc(d.slug)}.html">${image}</a><div class="project-card-copy"><span class="eyebrow">${esc(d.categoryLabel || d.category)}</span><h3><a href="/work/${esc(d.slug)}.html">${esc(d.client)}</a></h3><a class="text-link" href="${esc(d.clientUrl || '/contact.html')}"${d.clientUrl?' target="_blank" rel="noopener"':''}>${d.clientUrl?'Visit client ↗':'Project details ↗'}</a></div></article>`; };
 const projectCards = validWorks.map(projectCard).join('');
 const pillarCards = serviceJsons.slice(0,4).map((s,i)=>`<a class="pillar-card reveal" style="--reveal-delay:${i*90}ms" href="/services/${esc(s.slug)}.html"><span class="card-index">✳</span><h3>${esc(s.title)}</h3><p>${esc(s.short || s.intro)}</p><span class="text-link">Explore service ↗</span></a>`).join('');
@@ -69,7 +80,7 @@ const render = async ({url,title,description,key,body,ogType='website',schemaTyp
  await put(url,doc);
 };
 const articleMetaBySlug={};
-async function indexBlogFiles(dir){for(const entry of await fs.readdir(path.join(root,dir),{withFileTypes:true})){const file=path.join(dir,entry.name);if(entry.isDirectory()){await indexBlogFiles(file);continue;}if(!entry.name.endsWith('.md'))continue;const raw=await fs.readFile(path.join(root,file),'utf8');const match=raw.match(/^---\s*\r?\n([\s\S]*?)\r?\n---/);if(!match)continue;const data=JSON.parse(match[1]);articleMetaBySlug[data.slug]=data;}}
+async function indexBlogFiles(dir){for(const entry of await fs.readdir(path.join(root,dir),{withFileTypes:true})){const file=path.join(dir,entry.name);if(entry.isDirectory()){await indexBlogFiles(file);continue;}if(!entry.name.endsWith('.html'))continue;const {data}=await readHtmlRecord(file);if(data.slug)articleMetaBySlug[data.slug]=data;}}
 await indexBlogFiles('content/blogs');
 for (const s of serviceJsons) {
  const faqSchema={'@context':'https://schema.org','@type':'FAQPage',mainEntity:(s.faqs||[]).map(f=>({'@type':'Question',name:f.question,acceptedAnswer:{'@type':'Answer',text:f.answer}}))};
@@ -79,9 +90,9 @@ for (const s of serviceJsons) {
  await render({url:`/services/${s.slug}.html`,title:`${s.title} | Creative Nerds`,description:s.metaDescription||s.intro,key:`service-${s.slug}`,body,schemaType:'Service',extraSchema:s.faqs?.length?[faqSchema]:[]});
 }
 
-const blogFiles = await (async()=>{const result=[]; async function walk(d){for(const ent of await fs.readdir(path.join(root,d),{withFileTypes:true})){const p=path.join(d,ent.name);if(ent.isDirectory())await walk(p);else if(ent.name.endsWith('.md'))result.push(p)}} await walk('content/blogs'); return result;})();
+const blogFiles = await (async()=>{const result=[]; async function walk(d){for(const ent of await fs.readdir(path.join(root,d),{withFileTypes:true})){const p=path.join(d,ent.name);if(ent.isDirectory())await walk(p);else if(ent.name.endsWith('.html'))result.push(p)}} await walk('content/blogs'); return result;})();
 const blogs=[];
-for(const f of blogFiles){const raw=await fs.readFile(path.join(root,f),'utf8');const m=raw.match(/^---\s*\r?\n([\s\S]*?)\r?\n---\s*\r?\n([\s\S]*)$/); if(!m)continue;const d=JSON.parse(m[1]);let image=d.image?.replace(/^\/assets\/images\/blog\//,'/assets/images/journal/');if(image&&!await fs.access(path.join(root,image.replace(/^\//,''))).then(()=>true).catch(()=>false))image=null;const serviceAliases={'/social-media-marketing.html':'/services/social-media-marketing.html','/seo-organic-growth.html':'/services/seo-organic-growth.html','/website-design-development.html':'/services/website-design-development.html'};let body=m[2];for(const [from,to] of Object.entries(serviceAliases))body=body.replaceAll(from,to);if(d.description==='Your reach didn')d.description="Your reach didn't drop for no reason. Here's the real 2026 Instagram algorithm shift behind it, and what actual Instagram marketing looks like now.";blogs.push({d:{...d,url:d.url,image},body});}
+for(const f of blogFiles){const {data:d,body:sourceBody}=await readHtmlRecord(f);if(!d.slug)continue;let image=d.image?.replace(/^\/assets\/images\/blog\//,'/assets/images/journal/');if(image&&!await fs.access(path.join(root,image.replace(/^\//,''))).then(()=>true).catch(()=>false))image=null;const serviceAliases={'/social-media-marketing.html':'/services/social-media-marketing.html','/seo-organic-growth.html':'/services/seo-organic-growth.html','/website-design-development.html':'/services/website-design-development.html'};let body=sourceBody;for(const [from,to] of Object.entries(serviceAliases))body=body.replaceAll(from,to);if(d.description==='Your reach didn')d.description="Your reach didn't drop for no reason. Here's the real 2026 Instagram algorithm shift behind it, and what actual Instagram marketing looks like now.";blogs.push({d:{...d,url:d.url,image},body});}
 blogs.sort((a,b)=>String(b.d.date||'').localeCompare(String(a.d.date||'')));
 for (const [url,title,description,key,schemaType] of pageDefs) await render({url,title,description,key,body:await bodyFor(key),schemaType});
 const blogCards=blogs.map((b,i)=>journalCard(b,i,i===0)).join('');

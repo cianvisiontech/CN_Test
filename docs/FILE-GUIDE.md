@@ -24,8 +24,8 @@
 - `testimonials.json` — published client quotes and source notes.
 - `facts.json` and `team.json` — owner-verified facts and team profiles. Empty values mean no verified detail was available.
 - `services/*.json` — one record per service, including the audience, deliverables, process, FAQs, and related content.
-- `blogs/*.md` — article metadata in a JSON frontmatter block followed by the article's editable HTML body. Original published `.html` routes are preserved.
-- `work/*.md` — one project record per client/service. JSON frontmatter holds available names, links, approved Creative Nerds supplied art, and missing-detail markers.
+- `blogs/**/*.html` — complete HTML source documents. Edit the article markup inside `<body>` and article fields in the `<head>` `cn:*` meta tags. Original published `.html` routes are preserved.
+- `work/*.html` — one complete HTML source document per project. Edit the project copy in `<body>` and the corresponding project fields in the `<head>` `cn:*` meta tags.
 - `work/_unpublished/` — project drafts that must not appear in production until approved.
 
 ## `assets/`
