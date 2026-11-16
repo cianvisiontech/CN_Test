@@ -2,4 +2,4 @@
 @font-face{font-family:Outfit;src:url('/assets/fonts/outfit-medium.woff2') format('woff2');font-weight:500;font-display:swap}
 @font-face{font-family:Outfit;src:url('/assets/fonts/outfit-semibold.woff2') format('woff2');font-weight:600;font-display:swap}
 @font-face{font-family:Outfit;src:url('/assets/fonts/outfit-bold.woff2') format('woff2');font-weight:700 900;font-display:swap}
-:root{color-scheme:light;--paper:#f5f3ee;--paper-deep:#ebe7de;--ink:#171717;--muted:#74716b;--line:#d9d6ce;--violet:#862af1;--violet-deep:#5a22bd;--orange:#f47b20;--white:#fff;--font-body:Outfit,Arial,sans-serif;--font-mono:'DM Mono',ui-monospace,'SFMono-Regular',Consolas,monospace;--wrap:min(1320px,calc(100% - 9vw));--ease:cubic-bezier(.22,.72,.18,1);--header-height:92px}
+:root{color-scheme:light;--paper:#f7f4ec;--paper-deep:#eee8db;--ink:#171717;--muted:#74716b;--line:#ded8cb;--violet:#862af1;--violet-deep:#5a22bd;--orange:#f47b20;--white:#fff;--font-body:Outfit,Arial,sans-serif;--font-mono:'DM Mono',ui-monospace,'SFMono-Regular',Consolas,monospace;--wrap:min(1320px,calc(100% - 9vw));--ease:cubic-bezier(.22,.72,.18,1);--header-height:92px}
