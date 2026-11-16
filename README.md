@@ -1,6 +1,6 @@
 # Creative Nerds website
 
-This repository is a rebuild of the Creative Nerds website. It keeps the editable content in `content/`, page source and templates in `src/`, and builds plain static files into `dist/` for Apache hosting.
+This repository is a rebuild of the Creative Nerds website. It keeps the editable content in `content/`, page source and templates in `src/`, and builds plain static files into `dist/` for Apache or Netlify hosting.
 
 ## Run locally
 
@@ -28,6 +28,6 @@ Read [docs/FILE-GUIDE.md](docs/FILE-GUIDE.md) for the responsibility of each pro
 
 ## Publishing
 
-The site is static. Upload the contents of `dist/` to the hosting document root. Do not upload `src/`, `content/`, `_archive/`, or development tools as the public site. Apache uses the included `.htaccess` for redirects, compression and cache headers.
+The site is static. For Apache, upload the contents of `dist/` to the hosting document root; Apache uses the included `.htaccess` for redirects, compression and cache headers. Netlify builds with `npm run build` and publishes `dist/`, as configured in `netlify.toml`.
 
 The contact form opens an email draft until an approved form endpoint is configured in `content/site.config.json`. A real endpoint must be tested on the host before it is entered there.

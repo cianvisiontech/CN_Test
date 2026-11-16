@@ -50,7 +50,19 @@ const clientList = clients.map(c => `<span>${esc(c.name)}</span>`).join('');
 const workFiles = await files('content/work','.html');
 const works = await Promise.all(workFiles.map(readHtmlRecord));
 const validWorks = works.map((w,i)=>{ const d=w.data; return { ...w, data:{...d, slug:d.slug||path.basename(workFiles[i],'.html'), category:d.categoryKey||String(d.category||'').toLowerCase().replace(/\s+/g,'-'), categoryLabel:d.category, image:d.image?.replace('/assets/images/portfolio/fce.png','/assets/images/portfolio/famos-cine-equipments-content.png').replace('/assets/images/portfolio/ns.png','/assets/images/portfolio/nail-social-kandivali-content.png'), imageAlt:d.alt, summary:d.summary||d.overview, bodySummary:d.approach, clientUrl:d.website||d.instagram}}; });
-const projectCard = (w) => { const d=w.data; const image=d.image ? `<img src="${esc(d.image)}" alt="${esc(d.imageAlt || d.client+' project')}" loading="lazy">` : `<div class="project-placeholder"><span>${esc(d.client)}</span><small>Project imagery to be added</small></div>`; return `<article class="project-card reveal" data-project-category="${esc(d.category)}"><a class="project-visual" href="/work/${esc(d.slug)}.html">${image}</a><div class="project-card-copy"><span class="eyebrow">${esc(d.categoryLabel || d.category)}</span><h3><a href="/work/${esc(d.slug)}.html">${esc(d.client)}</a></h3><a class="text-link" href="${esc(d.clientUrl || '/contact.html')}"${d.clientUrl?' target="_blank" rel="noopener"':''}>${d.clientUrl?'Visit client ↗':'Project details ↗'}</a></div></article>`; };
+const projectCard = (w) => {
+ const d=w.data;
+ const image = d.image
+  ? `<img class="image-reveal" src="${esc(d.image)}" alt="${esc(d.imageAlt || d.client+' project')}" loading="lazy" width="1200" height="810">`
+  : `<div class="project-placeholder" aria-label="${esc(d.client)} project preview"><span>${esc(d.client)}</span><small>Selected project</small></div><span class="preview-note" data-preview-placeholder hidden>Preview mode · Add approved project imagery</span>`;
+ const external = d.clientUrl ? `<a class="text-link" href="${esc(d.clientUrl)}" target="_blank" rel="noopener noreferrer">${d.instagram?'View Instagram ↗':'Visit website ↗'}</a>` : '';
+ return `<article class="project-card reveal tilt-card" data-project-category="${esc(d.category)}" data-tilt>
+   <a class="project-visual" href="/work/${esc(d.slug)}.html" aria-label="View ${esc(d.client)} case study">${image}<span class="project-open" aria-hidden="true">↗</span></a>
+   <div class="project-card-copy"><span class="eyebrow">${esc(d.categoryLabel || d.category)}</span><h3><a href="/work/${esc(d.slug)}.html">${esc(d.client)}</a></h3>
+   <p>${esc(d.summary || 'Explore this selected Creative Nerds project.')}</p>
+   <div class="project-actions">${external}<a class="text-link" href="/work/${esc(d.slug)}.html">View case study ↗</a></div></div>
+ </article>`;
+};
 const projectCards = validWorks.map(projectCard).join('');
 const pillarCards = serviceJsons.slice(0,4).map((s,i)=>`<a class="pillar-card reveal" style="--reveal-delay:${i*90}ms" href="/services/${esc(s.slug)}.html"><span class="card-index">✳</span><h3>${esc(s.title)}</h3><p>${esc(s.short || s.intro)}</p><span class="text-link">Explore service ↗</span></a>`).join('');
 const testimonial = await json('content/testimonials.json');
@@ -100,12 +112,39 @@ const blogIndex=`<section class="page-hero wrap"><span class="eyebrow">Journal</
 await render({url:'/blogs.html',title:'Journal | Creative Nerds',description:'Ideas on brand, digital experiences, creative work and marketing.',key:'journal',body:blogIndex,schemaType:'CollectionPage'});
 for(const {d,body} of blogs){const url=d.url||`/blogs/${d.slug}.html`; const article=`<article class="article wrap"><header class="article-header"><a class="eyebrow" href="/blogs.html">Journal</a><h1>${esc(d.title)}</h1><p>${esc(d.description||'')}</p><time datetime="${esc(d.date||'')}">${esc(d.date||'')}</time></header>${d.image?`<img class="article-cover" src="${esc(d.image)}" alt="${esc(d.imageAlt||'')}" loading="eager">`:'<div class="article-cover-placeholder">Article image not supplied</div>'}<div class="article-body">${body}</div><footer><a class="text-link" href="/blogs.html">← All articles</a></footer></article>`; const articleSchema={'@context':'https://schema.org','@type':'Article',headline:d.title,datePublished:d.date||undefined,description:d.description,url:`${base}${url}`,author:{'@type':'Organization',name:'Creative Nerds'},publisher:{'@type':'Organization',name:'Creative Nerds',logo:{'@type':'ImageObject',url:`${base}/assets/images/brand/creative-nerds-logo.png`}}}; await render({url,title:`${d.title} | Creative Nerds`,description:d.description||d.title,key:'article',body:article,ogType:'article',schemaType:'Article',extraSchema:[articleSchema]});}
 
-for(const w of validWorks){const d=w.data; const body=`<section class="page-hero wrap"><span class="eyebrow">Selected work · ${esc(d.categoryLabel||d.category)}</span><h1>${esc(d.client)}</h1><p>${esc(d.summary||'A Creative Nerds client project.')}</p></section><section class="section wrap"><div class="case-study-visual">${d.image?`<img src="${esc(d.image)}" alt="${esc(d.imageAlt||d.client+' project')}" loading="eager">`:`<div class="project-placeholder"><span>${esc(d.client)}</span><small>Approved project imagery pending</small></div>`}</div><div class="article-body"><h2>Project information</h2><p>${esc(d.bodySummary||d.summary||'Project description and outcome details have not been supplied for publication.')}</p><dl>${[['Client',d.client],['Service',d.categoryLabel||d.category],['Timeline',d.timeline],['Results',d.results]].filter(x=>x[1]).map(x=>`<dt>${esc(x[0])}</dt><dd>${esc(x[1])}</dd>`).join('')}</dl></div><a class="button button-primary" href="/contact.html">Plan a project ↗</a></section>`; const cs={'@context':'https://schema.org','@type':'CreativeWork',name:d.client,description:d.summary||d.client,url:`${base}/work/${d.slug}.html`}; await render({url:`/work/${d.slug}.html`,title:`${d.client} | Selected Work | Creative Nerds`,description:d.summary||`${d.client} project by Creative Nerds.`,key:`work-${d.slug}`,body,schemaType:'CreativeWork',extraSchema:[cs]});}
+for(const w of validWorks){
+ const d=w.data;
+ const hasReal = value => value && !/^(expanded project information has not yet been supplied|a client-approved project description is needed before this section can be completed|website screenshots and approved project details are still needed)\.?$/i.test(String(value).trim());
+ const visual = d.image
+  ? `<img class="image-reveal" src="${esc(d.image)}" alt="${esc(d.imageAlt||d.client+' project')}" loading="eager" width="1400" height="945">`
+  : `<div class="project-placeholder case-placeholder"><span>${esc(d.client)}</span><small>Selected project</small></div><p class="preview-note" data-preview-placeholder hidden>Preview mode · Approved project visuals are still required for this case study.</p>`;
+ const external = d.clientUrl ? `<a class="button button-secondary" href="${esc(d.clientUrl)}" target="_blank" rel="noopener noreferrer">${d.instagram?'View Instagram profile':'Visit live website'} ↗</a>` : '';
+ const overview = hasReal(d.overview) ? `<section class="case-copy-block reveal"><span class="eyebrow">Overview</span><h2>The project</h2><p>${esc(d.overview)}</p></section>` : '';
+ const approach = hasReal(d.approach) ? `<section class="case-copy-block reveal"><span class="eyebrow">Approach</span><h2>How we approached it</h2><p>${esc(d.approach)}</p></section>` : '';
+ const deliverables = Array.isArray(d.deliverables)&&d.deliverables.length ? `<section class="case-copy-block reveal"><span class="eyebrow">Deliverables</span><h2>What was delivered</h2><ul class="deliverable-list">${d.deliverables.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></section>` : '';
+ const results = hasReal(d.results) ? `<section class="case-copy-block reveal"><span class="eyebrow">Results</span><h2>Project outcomes</h2><p>${esc(d.results)}</p></section>` : '';
+ const body=`<section class="page-hero wrap case-hero"><span class="eyebrow">Selected work · ${esc(d.categoryLabel||d.category)}</span><h1 class="page-title reveal-text">${esc(d.client)}</h1><p class="lead">${esc(d.summary||'Explore this selected Creative Nerds project.')}</p><div class="case-actions">${external}<a class="text-link" href="/projects.html">← All projects</a></div></section>
+ <section class="section wrap"><div class="case-study-visual reveal">${visual}</div>
+ <div class="case-study-layout"><div class="case-study-main">${overview}${approach}${deliverables}${results}</div><aside class="case-study-sidebar reveal"><span class="eyebrow">Project details</span><dl><dt>Client</dt><dd>${esc(d.client)}</dd><dt>Category</dt><dd>${esc(d.categoryLabel||d.category)}</dd></dl><a class="text-link" href="/contact.html">Start a similar project ↗</a></aside></div></section>
+ <section class="section section-dark"><div class="wrap case-next reveal"><span class="eyebrow">Have a project in mind?</span><h2>Let's make<br><em>it matter.</em></h2><a class="button button-primary" href="/contact.html">Start a project ↗</a></div></section>`;
+ const cs={'@context':'https://schema.org','@type':'CreativeWork',name:d.client,description:d.summary||d.client,url:`${base}/work/${d.slug}.html`};
+ await render({url:`/work/${d.slug}.html`,title:`${d.client} | Selected Work | Creative Nerds`,description:d.summary||`${d.client} project by Creative Nerds.`,key:`work-${d.slug}`,body,schemaType:'CreativeWork',extraSchema:[cs]});
+}
 
 for(const dir of ['assets/styles','assets/scripts','assets/fonts'])await copyDir(dir,dir);
 for(const file of ['assets/images/brand/creative-nerds-logo.png','assets/images/brand/creative-nerds-social-card.png','assets/images/brand/favicon.png','assets/images/about/aboutus.png','assets/images/portfolio/famos-cine-equipments-content.png','assets/images/portfolio/nail-social-kandivali-content.png','assets/video/portal-reel.mp4'])await copyPath(file);
 for(const {d} of blogs)if(d.image)await copyPath(d.image.replace(/^\//,''));
-for(const p of ['.htaccess','robots.txt'])await fs.copyFile(path.join(root,p),path.join(out,p));
+// Apache configuration is only needed on Apache hosts such as Bluehost.
+// Netlify does not use .htaccess, so skip it when it is not present.
+for (const file of ['.htaccess', 'robots.txt']) {
+  try {
+    await fs.copyFile(path.join(root, file), path.join(out, file));
+  } catch (error) {
+    if (error.code !== 'ENOENT') throw error;
+    if (file !== '.htaccess') throw error;
+    console.log('.htaccess not found; skipping Apache-only configuration.');
+  }
+}
 const sitemap=[...pageDefs.map(x=>x[0]),...serviceJsons.map(s=>`/services/${s.slug}.html`),'/blogs.html',...blogs.map(x=>x.d.url||`/blogs/${x.d.slug}.html`),...validWorks.map(w=>`/work/${w.data.slug}.html`)];
 const sitemapDate=new Date().toISOString().slice(0,10);
 await fs.writeFile(path.join(out,'sitemap.xml'),`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${[...new Set(sitemap)].map(u=>`  <url><loc>${new URL(u,`${base}/`).href}</loc><lastmod>${sitemapDate}</lastmod></url>`).join('\n')}\n</urlset>\n`);

@@ -1,11 +1,11 @@
 .article-shell{padding-top:calc(var(--header-height) + 60px)}
-.article-topline{display:flex;align-items:center;gap:22px;color:var(--muted);font:9px var(--font-mono);letter-spacing:.1em;text-transform:uppercase}
+.article-topline{display:flex;align-items:center;gap:22px;color:var(--muted);font:12px var(--font-mono);letter-spacing:.1em;text-transform:uppercase}
 .article-topline .eyebrow{color:var(--violet)}
 .article-title{max-width:1100px;font-size:clamp(44px,8vw,100px);line-height:.94;letter-spacing:-.075em;font-weight:500;margin:25px 0 15px;text-wrap:balance}
 .article-deck{max-width:760px;color:var(--muted);font-size:clamp(17px,2vw,22px)}
 .article-cover{margin:36px 0 58px;overflow:hidden;background:var(--paper-deep)}
 .article-cover img{width:100%;max-height:620px;object-fit:cover}
-.article-cover-placeholder{display:grid;place-items:center;min-height:300px;padding:30px;color:var(--muted);font:10px var(--font-mono);letter-spacing:.13em;text-transform:uppercase}
+.article-cover-placeholder{display:grid;place-items:center;min-height:300px;padding:30px;color:var(--muted);font:12.5px var(--font-mono);letter-spacing:.13em;text-transform:uppercase}
 .article-grid-layout{display:grid;grid-template-columns:minmax(0,780px) minmax(180px,260px);gap:clamp(35px,8vw,130px);align-items:start}
 .article-body{font-size:18px;line-height:1.78;color:#35332f}
 .article-body>p:first-child{font-size:21px;line-height:1.6;color:var(--ink)}
@@ -35,18 +35,18 @@
 .jc-media img{width:100%;height:100%;object-fit:cover;transform:scale(1.18);transition:transform 1.3s var(--ease),filter .5s}
 .journal-card.visible .jc-media img,.no-js .jc-media img{transform:scale(1)}
 .journal-card>a:hover .jc-media img{transform:scale(1.07)}
-.jc-placeholder{display:grid;place-items:center;height:100%;padding:20px;text-align:center;color:var(--muted);font:10px var(--font-mono);letter-spacing:.13em;text-transform:uppercase}
-.jc-cat{position:absolute;left:14px;top:14px;z-index:1;padding:6px 10px;background:var(--ink);color:#fff;font:9px var(--font-mono);letter-spacing:.12em;text-transform:uppercase;transform:translateY(-6px);opacity:.96;transition:background .3s,transform .4s var(--ease)}
+.jc-placeholder{display:grid;place-items:center;height:100%;padding:20px;text-align:center;color:var(--muted);font:12.5px var(--font-mono);letter-spacing:.13em;text-transform:uppercase}
+.jc-cat{position:absolute;left:14px;top:14px;z-index:1;padding:6px 10px;background:var(--ink);color:#fff;font:12px var(--font-mono);letter-spacing:.12em;text-transform:uppercase;transform:translateY(-6px);opacity:.96;transition:background .3s,transform .4s var(--ease)}
 .journal-card>a:hover .jc-cat{background:var(--violet);transform:none}
 .jc-body{display:flex;flex-direction:column;gap:11px;flex:1;padding:22px 22px 24px}
-.jc-meta{display:flex;align-items:center;gap:12px;color:var(--muted);font:10px var(--font-mono);letter-spacing:.1em;text-transform:uppercase}
+.jc-meta{display:flex;align-items:center;gap:12px;color:var(--muted);font:12.5px var(--font-mono);letter-spacing:.1em;text-transform:uppercase}
 .jc-meta b{color:var(--violet);font-weight:500}
 .jc-meta::after{content:"";flex:1;height:1px;background:var(--line);transform-origin:left;transform:scaleX(.3);transition:transform .6s var(--ease)}
 .journal-card>a:hover .jc-meta::after{transform:scaleX(1);background:var(--violet)}
 .jc-body h3,.jc-body h2{font-size:clamp(20px,1.9vw,27px);line-height:1.1;letter-spacing:-.045em;font-weight:500;margin:0;background:linear-gradient(var(--violet),var(--violet)) 0 100%/0 2px no-repeat;transition:background-size .6s var(--ease);padding-bottom:3px;display:inline;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 .journal-card>a:hover h3{background-size:100% 2px}
 .jc-body p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.55;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.jc-more{margin-top:auto;padding-top:6px;display:inline-flex;align-items:center;gap:10px;font:10px var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
+.jc-more{margin-top:auto;padding-top:6px;display:inline-flex;align-items:center;gap:10px;font:12.5px var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
 .jc-more i{display:grid;place-items:center;width:30px;height:30px;border:1px solid var(--line);border-radius:50%;font-style:normal;color:var(--violet);transition:transform .45s var(--ease),background .3s,color .3s,border-color .3s}
 .journal-card>a:hover .jc-more i{transform:rotate(45deg);background:var(--violet);border-color:var(--violet);color:#fff}
 /* featured first card */

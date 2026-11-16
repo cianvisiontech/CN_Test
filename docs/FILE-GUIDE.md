@@ -58,6 +58,7 @@
 - `scripts/validate-seo.mjs` — checks titles, descriptions, canonical/OG/Twitter metadata, one H1, and GTM on every generated page.
 - `scripts/validate-schema.mjs` — parses each generated JSON-LD block.
 - `tools/preview-server.mjs` — small Node static file server for the generated `dist/`; it is not part of production hosting.
+- `netlify.toml` — tells Netlify to run the static build and publish `dist/`.
 - `docs/` — file guide, source audit, redirect inventory, owner information requests, and validation report.
 - `.github/workflows/` — CI build and static checks for the `redesign` branch.
 - `_archive/` — original pages, scripts, styles, and unused source assets preserved during the rebuild for traceability. The builder does not publish the archive.
@@ -67,9 +68,10 @@
 - Homepage hero copy enters with a short text reveal.
 - The oversized SVG wordmark section stays pinned while the A-shaped mask expands to reveal the muted studio video; the letters scale toward the A as the scroll continues.
 - “MAKE MATTER” slides into view below the video portal, with separate horizontal movement for each line.
+- Process timeline rules fill across as the visitor scrolls through the steps.
 - The capabilities ticker moves horizontally and pauses for reduced-motion preferences.
-- Section cards and headings reveal when they enter the viewport.
-- Project images scale subtly on hover; card filtering works without a reload.
+- Section cards, headings and project images reveal when they enter the viewport.
+- Project cards tilt subtly and show a glowing lightbulb pointer on desktop hover; card filtering works without a reload.
 - Capability, project and journal cards show a pointer spotlight; journal cards gently tilt on desktop.
 - The mobile menu expands in place, and honors Escape and link selection.
 - `prefers-reduced-motion` disables large transitions and the ticker, and keeps content visible.
