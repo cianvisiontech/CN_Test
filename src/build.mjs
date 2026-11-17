@@ -55,10 +55,11 @@ const projectCard = (w) => {
  const image = d.image
   ? `<img class="image-reveal" src="${esc(d.image)}" alt="${esc(d.imageAlt || d.client+' project')}" loading="lazy" width="1200" height="810">`
   : `<div class="project-placeholder" aria-label="${esc(d.client)} project preview"><span>${esc(d.client)}</span><small>Selected project</small></div><span class="preview-note" data-preview-placeholder hidden>Preview mode · Add approved project imagery</span>`;
+ const playIcon = d.video ? '<span class="project-play" aria-hidden="true">▶</span>' : '';
  const external = d.clientUrl ? `<a class="text-link" href="${esc(d.clientUrl)}" target="_blank" rel="noopener noreferrer">${d.instagram?'View Instagram ↗':'Visit website ↗'}</a>` : '';
  const videoLink = d.video ? `<a class="text-link" href="/work/${esc(d.slug)}.html#project-reel">Watch social media reel ↗</a>` : '';
  return `<article class="project-card reveal tilt-card" data-project-category="${esc(d.category)}" data-tilt>
-   <a class="project-visual" href="/work/${esc(d.slug)}.html" aria-label="View ${esc(d.client)} case study">${image}<span class="project-open" aria-hidden="true">↗</span></a>
+   <a class="project-visual" href="/work/${esc(d.slug)}.html" aria-label="View ${esc(d.client)} case study">${image}${playIcon}<span class="project-open" aria-hidden="true">↗</span></a>
    <div class="project-card-copy"><span class="eyebrow">${esc(d.categoryLabel || d.category)}</span><h3><a href="/work/${esc(d.slug)}.html">${esc(d.client)}</a></h3>
    <p>${esc(d.summary || 'Explore this selected Creative Nerds project.')}</p>
    <div class="project-actions">${external}${videoLink}<a class="text-link" href="/work/${esc(d.slug)}.html">View case study ↗</a></div></div>
@@ -133,7 +134,9 @@ for(const w of validWorks){
  await render({url:`/work/${d.slug}.html`,title:`${d.client} | Selected Work | Creative Nerds`,description:d.summary||`${d.client} project by Creative Nerds.`,key:`work-${d.slug}`,body,schemaType:'CreativeWork',extraSchema:[cs]});
 }
 
-for(const dir of ['assets/styles','assets/scripts','assets/fonts','assets/images/portfolio','assets/video/projects'])await copyDir(dir,dir);
+for(const dir of ['assets/styles','assets/scripts','assets/fonts'])await copyDir(dir,dir);
+await copyDir('assets/images/portfolio','assets/images/portfolio');
+await copyDir('assets/video/projects','assets/video/projects');
 for(const file of ['assets/images/brand/creative-nerds-logo.png','assets/images/brand/creative-nerds-social-card.png','assets/images/brand/favicon.png','assets/images/about/aboutus.png','assets/video/portal-reel.mp4'])await copyPath(file);
 for(const {d} of blogs)if(d.image)await copyPath(d.image.replace(/^\//,''));
 // Apache configuration is only needed on Apache hosts such as Bluehost.
