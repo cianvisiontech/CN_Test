@@ -56,11 +56,12 @@ const projectCard = (w) => {
   ? `<img class="image-reveal" src="${esc(d.image)}" alt="${esc(d.imageAlt || d.client+' project')}" loading="lazy" width="1200" height="810">`
   : `<div class="project-placeholder" aria-label="${esc(d.client)} project preview"><span>${esc(d.client)}</span><small>Selected project</small></div><span class="preview-note" data-preview-placeholder hidden>Preview mode · Add approved project imagery</span>`;
  const external = d.clientUrl ? `<a class="text-link" href="${esc(d.clientUrl)}" target="_blank" rel="noopener noreferrer">${d.instagram?'View Instagram ↗':'Visit website ↗'}</a>` : '';
+ const videoLink = d.video ? `<a class="text-link" href="/work/${esc(d.slug)}.html#project-reel">Watch social media reel ↗</a>` : '';
  return `<article class="project-card reveal tilt-card" data-project-category="${esc(d.category)}" data-tilt>
    <a class="project-visual" href="/work/${esc(d.slug)}.html" aria-label="View ${esc(d.client)} case study">${image}<span class="project-open" aria-hidden="true">↗</span></a>
    <div class="project-card-copy"><span class="eyebrow">${esc(d.categoryLabel || d.category)}</span><h3><a href="/work/${esc(d.slug)}.html">${esc(d.client)}</a></h3>
    <p>${esc(d.summary || 'Explore this selected Creative Nerds project.')}</p>
-   <div class="project-actions">${external}<a class="text-link" href="/work/${esc(d.slug)}.html">View case study ↗</a></div></div>
+   <div class="project-actions">${external}${videoLink}<a class="text-link" href="/work/${esc(d.slug)}.html">View case study ↗</a></div></div>
  </article>`;
 };
 const projectCards = validWorks.map(projectCard).join('');
@@ -119,19 +120,20 @@ for(const w of validWorks){
   ? `<img class="image-reveal" src="${esc(d.image)}" alt="${esc(d.imageAlt||d.client+' project')}" loading="eager" width="1400" height="945">`
   : `<div class="project-placeholder case-placeholder"><span>${esc(d.client)}</span><small>Selected project</small></div><p class="preview-note" data-preview-placeholder hidden>Preview mode · Approved project visuals are still required for this case study.</p>`;
  const external = d.clientUrl ? `<a class="button button-secondary" href="${esc(d.clientUrl)}" target="_blank" rel="noopener noreferrer">${d.instagram?'View Instagram profile':'Visit live website'} ↗</a>` : '';
+ const video = d.video ? `<div class="case-video-block reveal" id="project-reel"><span class="eyebrow">Social media work</span><video class="case-study-video" controls preload="metadata" playsinline aria-label="Social media work for ${esc(d.client)}"><source src="${esc(d.video)}" type="video/mp4">Your browser does not support embedded video.</video></div>` : '';
  const overview = hasReal(d.overview) ? `<section class="case-copy-block reveal"><span class="eyebrow">Overview</span><h2>The project</h2><p>${esc(d.overview)}</p></section>` : '';
  const approach = hasReal(d.approach) ? `<section class="case-copy-block reveal"><span class="eyebrow">Approach</span><h2>How we approached it</h2><p>${esc(d.approach)}</p></section>` : '';
  const deliverables = Array.isArray(d.deliverables)&&d.deliverables.length ? `<section class="case-copy-block reveal"><span class="eyebrow">Deliverables</span><h2>What was delivered</h2><ul class="deliverable-list">${d.deliverables.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></section>` : '';
  const results = hasReal(d.results) ? `<section class="case-copy-block reveal"><span class="eyebrow">Results</span><h2>Project outcomes</h2><p>${esc(d.results)}</p></section>` : '';
  const body=`<section class="page-hero wrap case-hero"><span class="eyebrow">Selected work · ${esc(d.categoryLabel||d.category)}</span><h1 class="page-title reveal-text">${esc(d.client)}</h1><p class="lead">${esc(d.summary||'Explore this selected Creative Nerds project.')}</p><div class="case-actions">${external}<a class="text-link" href="/projects.html">← All projects</a></div></section>
- <section class="section wrap"><div class="case-study-visual reveal">${visual}</div>
+ <section class="section wrap"><div class="case-study-visual reveal">${visual}</div>${video}
  <div class="case-study-layout"><div class="case-study-main">${overview}${approach}${deliverables}${results}</div><aside class="case-study-sidebar reveal"><span class="eyebrow">Project details</span><dl><dt>Client</dt><dd>${esc(d.client)}</dd><dt>Category</dt><dd>${esc(d.categoryLabel||d.category)}</dd></dl><a class="text-link" href="/contact.html">Start a similar project ↗</a></aside></div></section>
  <section class="section section-dark"><div class="wrap case-next reveal"><span class="eyebrow">Have a project in mind?</span><h2>Let's make<br><em>it matter.</em></h2><a class="button button-primary" href="/contact.html">Start a project ↗</a></div></section>`;
  const cs={'@context':'https://schema.org','@type':'CreativeWork',name:d.client,description:d.summary||d.client,url:`${base}/work/${d.slug}.html`};
  await render({url:`/work/${d.slug}.html`,title:`${d.client} | Selected Work | Creative Nerds`,description:d.summary||`${d.client} project by Creative Nerds.`,key:`work-${d.slug}`,body,schemaType:'CreativeWork',extraSchema:[cs]});
 }
 
-for(const dir of ['assets/styles','assets/scripts','assets/fonts'])await copyDir(dir,dir);
+for(const dir of ['assets/styles','assets/scripts','assets/fonts','assets/images/portfolio','assets/video/projects'])await copyDir(dir,dir);
 for(const file of ['assets/images/brand/creative-nerds-logo.png','assets/images/brand/creative-nerds-social-card.png','assets/images/brand/favicon.png','assets/images/about/aboutus.png','assets/images/portfolio/famos-cine-equipments-content.png','assets/images/portfolio/nail-social-kandivali-content.png','assets/video/portal-reel.mp4'])await copyPath(file);
 for(const {d} of blogs)if(d.image)await copyPath(d.image.replace(/^\//,''));
 // Apache configuration is only needed on Apache hosts such as Bluehost.
