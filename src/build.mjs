@@ -49,7 +49,7 @@ const clients = await json('content/clients.json');
 const clientList = clients.map(c => `<span>${esc(c.name)}</span>`).join('');
 const workFiles = await files('content/work','.html');
 const works = await Promise.all(workFiles.map(readHtmlRecord));
-const validWorks = works.map((w,i)=>{ const d=w.data; return { ...w, data:{...d, slug:d.slug||path.basename(workFiles[i],'.html'), category:d.categoryKey||String(d.category||'').toLowerCase().replace(/\s+/g,'-'), categoryLabel:d.category, image:d.image?.replace('/assets/images/portfolio/fce.png','/assets/images/portfolio/famos-cine-equipments-content.png').replace('/assets/images/portfolio/ns.png','/assets/images/portfolio/nail-social-kandivali-content.png'), imageAlt:d.alt, summary:d.summary||d.overview, bodySummary:d.approach, clientUrl:d.website||d.instagram}}; });
+const validWorks = works.map((w,i)=>{ const d=w.data; return { ...w, data:{...d, slug:d.slug||path.basename(workFiles[i],'.html'), category:d.categoryKey||String(d.category||'').toLowerCase().replace(/\s+/g,'-'), categoryLabel:d.category, image:d.image, imageAlt:d.alt, summary:d.summary||d.overview, bodySummary:d.approach, clientUrl:d.website||d.instagram}}; });
 const projectCard = (w) => {
  const d=w.data;
  const image = d.image
@@ -134,7 +134,7 @@ for(const w of validWorks){
 }
 
 for(const dir of ['assets/styles','assets/scripts','assets/fonts','assets/images/portfolio','assets/video/projects'])await copyDir(dir,dir);
-for(const file of ['assets/images/brand/creative-nerds-logo.png','assets/images/brand/creative-nerds-social-card.png','assets/images/brand/favicon.png','assets/images/about/aboutus.png','assets/images/portfolio/famos-cine-equipments-content.png','assets/images/portfolio/nail-social-kandivali-content.png','assets/video/portal-reel.mp4'])await copyPath(file);
+for(const file of ['assets/images/brand/creative-nerds-logo.png','assets/images/brand/creative-nerds-social-card.png','assets/images/brand/favicon.png','assets/images/about/aboutus.png','assets/video/portal-reel.mp4'])await copyPath(file);
 for(const {d} of blogs)if(d.image)await copyPath(d.image.replace(/^\//,''));
 // Apache configuration is only needed on Apache hosts such as Bluehost.
 // Netlify does not use .htaccess, so skip it when it is not present.
