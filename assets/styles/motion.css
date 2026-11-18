@@ -107,13 +107,12 @@
 }
 .project-actions .text-link{font-size:12px}
 .project-card .project-open{z-index:2}
-.custom-cursor{display:grid;place-items:center;width:12px;height:12px;border-radius:50%;background:var(--ink);color:var(--paper);opacity:0;transition:width .3s var(--ease),height .3s var(--ease),opacity .2s}
-.custom-cursor svg{display:none}
-.custom-cursor::after{content:"View";font:500 11px/1 var(--font-mono);letter-spacing:.14em;text-transform:uppercase;opacity:0;transition:opacity .2s}
+.custom-cursor{display:grid;place-items:center;width:44px;height:44px;border:1px solid #ffd76a;border-radius:50%;background:#fff8dfed;color:#f0a900;opacity:0;box-shadow:0 0 12px 4px #ffc83d55;transition:width .3s var(--ease),height .3s var(--ease),opacity .2s,box-shadow .3s ease}
+.custom-cursor svg{display:block;width:25px;height:25px;overflow:visible;fill:#ffc83d;stroke:#5a3b00;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 5px #ffc83d) drop-shadow(0 0 11px #ffc83d99)}
 .cursor-active .custom-cursor{opacity:1}
 .cursor-hover,.cursor-hover *{cursor:none!important}
-.cursor-hover .custom-cursor{width:84px;height:84px}
-.cursor-hover .custom-cursor::after{opacity:1}
+.cursor-hover .custom-cursor{width:58px;height:58px;box-shadow:0 0 20px 7px #ffc83d99,0 0 44px 15px #ffc83d66;animation:bulb-glow 1.7s ease-in-out infinite alternate}
+@keyframes bulb-glow{to{box-shadow:0 0 26px 10px #ffc83dba,0 0 54px 20px #ffc83d77}}
 .process-timeline{--timeline-progress:0%}
 .process-timeline li{transition:opacity .35s ease}
 .process-timeline li.visible h3{color:var(--violet)}
@@ -141,7 +140,7 @@
 }
 .case-video-block{margin:0 0 clamp(48px,8vw,100px)}
 .case-video-block>.eyebrow{display:block;margin:0 0 16px}
-.case-study-video{display:block;width:100%;max-height:760px;aspect-ratio:16/9;background:#171717;object-fit:contain}
+.case-study-video{display:block;width:100%;height:auto;max-width:100%;max-height:80svh;margin-inline:auto;background:#171717;object-fit:contain}
 .case-placeholder{min-height:clamp(280px,48vw,620px)}
 .case-study-layout{
   display:grid;
