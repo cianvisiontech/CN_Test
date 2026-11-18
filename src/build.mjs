@@ -55,11 +55,14 @@ const projectCard = (w) => {
  const image = d.image
   ? `<img class="image-reveal" src="${esc(d.image)}" alt="${esc(d.imageAlt || d.client+' project')}" loading="lazy" width="1200" height="810">`
   : `<div class="project-placeholder" aria-label="${esc(d.client)} project preview"><span>${esc(d.client)}</span><small>Selected project</small></div><span class="preview-note" data-preview-placeholder hidden>Preview mode · Add approved project imagery</span>`;
+ const media = d.video
+  ? `<video class="card-video" data-card-video muted loop playsinline preload="metadata"${d.image?` poster="${esc(d.image)}"`:''}><source src="${esc(d.video)}#t=0.1" type="video/mp4"></video>`
+  : image;
  const playIcon = d.video ? '<span class="project-play" aria-hidden="true">▶</span>' : '';
  const external = d.clientUrl ? `<a class="text-link" href="${esc(d.clientUrl)}" target="_blank" rel="noopener noreferrer">${d.instagram?'View Instagram ↗':'Visit website ↗'}</a>` : '';
  const videoLink = d.video ? `<a class="text-link" href="/work/${esc(d.slug)}.html#project-reel">Watch social media reel ↗</a>` : '';
  return `<article class="project-card reveal tilt-card" data-project-category="${esc(d.category)}" data-tilt>
-   <a class="project-visual" href="/work/${esc(d.slug)}.html" aria-label="View ${esc(d.client)} case study">${image}${playIcon}<span class="project-open" aria-hidden="true">↗</span></a>
+   <a class="project-visual${d.video?' has-video':''}" href="/work/${esc(d.slug)}.html" aria-label="View ${esc(d.client)} case study">${media}${playIcon}<span class="project-open" aria-hidden="true">↗</span></a>
    <div class="project-card-copy"><span class="eyebrow">${esc(d.categoryLabel || d.category)}</span><h3><a href="/work/${esc(d.slug)}.html">${esc(d.client)}</a></h3>
    <p>${esc(d.summary || 'Explore this selected Creative Nerds project.')}</p>
    <div class="project-actions">${external}${videoLink}<a class="text-link" href="/work/${esc(d.slug)}.html">View case study ↗</a></div></div>

@@ -5,8 +5,9 @@ import { initContactForm } from './contact-form.js';
 import { initPreviewPlaceholders } from './preview-placeholders.js';
 import { initInteractions } from './interactions.js';
 import { initMotionEnhancements } from './motion-enhancements.js';
+import { initCardVideos } from './card-video.js';
 
-document.documentElement.classList.add('js','js-ready');
+document.documentElement.classList.add('js');
 initNavigation();
 initMotionEnhancements();
 initScrollEffects();
@@ -14,4 +15,6 @@ initPortfolioFilter();
 initContactForm();
 initPreviewPlaceholders();
 initInteractions();
+initCardVideos();
 document.querySelectorAll('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
+document.documentElement.classList.add('js-ready');

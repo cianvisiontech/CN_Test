@@ -5,9 +5,13 @@ export function initScrollEffects() {
   const items = document.querySelectorAll('.reveal, .reveal-text, .word-reveal, .image-reveal');
   if (!reduce && 'IntersectionObserver' in window) {
     const observer = new IntersectionObserver(entries => entries.forEach(entry => {
-      if (entry.isIntersecting) { entry.target.classList.add('is-visible','visible'); observer.unobserve(entry.target); }
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      el.classList.add('is-visible','visible');
+      el.querySelectorAll('.image-reveal').forEach(image => image.classList.add('is-visible','visible'));
+      observer.unobserve(el);
     }), {threshold:.14, rootMargin:'0px 0px -35px 0px'});
-    items.forEach(item => observer.observe(item));
+    items.forEach(item => observer.observe(item.classList.contains('image-reveal') ? (item.parentElement || item) : item));
   } else items.forEach(item => item.classList.add('is-visible','visible'));
   let queued = false;
   const update = () => {

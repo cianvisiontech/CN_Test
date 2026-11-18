@@ -32,12 +32,16 @@
 .project-grid-compact{gap:22px}
 .project-card{min-width:0;transition:opacity .25s ease,transform .4s var(--ease)}
 .project-card[hidden]{display:none}
-.project-visual{position:relative;display:grid;place-items:center;aspect-ratio:1.48;background:#e8e2d7;overflow:hidden}
+.project-visual{position:relative;display:grid;place-items:center;aspect-ratio:1.48;background:#eadfc6;overflow:hidden}
 .project-visual::after{content:"";position:absolute;z-index:1;inset:0;border:1px solid transparent;box-shadow:inset 0 0 0 #ffc83d00,0 0 0 #ffc83d00;opacity:0;pointer-events:none;transition:opacity .28s ease,border-color .28s ease,box-shadow .35s ease}
-.project-visual:hover::after,.project-visual:focus-visible::after{border-color:#ffd76a;box-shadow:inset 0 0 22px #ffc83d38,0 0 18px 3px #ffc83d88,0 0 38px 9px #ffc83d55;opacity:1;animation:photo-frame-glow 1.8s ease-in-out infinite alternate}
-@keyframes photo-frame-glow{to{box-shadow:inset 0 0 30px #ffc83d55,0 0 24px 5px #ffc83d9c,0 0 52px 14px #ffc83d70}}
+.project-visual:hover::after,.project-visual:focus-visible::after{border-color:#c8962e66;opacity:1}
 .project-visual img,.project-visual video{width:100%;height:100%;object-fit:cover;transition:transform .85s var(--ease),filter .6s ease}
+.project-visual.has-video{background:#1b1812}
+.project-visual.has-video video{object-fit:contain}
 .project-card:hover .project-visual img{transform:scale(1.045);filter:saturate(1.08)}
+.project-play{position:absolute;z-index:2;left:50%;top:50%;display:grid;place-items:center;width:64px;height:64px;padding-left:4px;border-radius:50%;background:var(--paper);color:var(--ink);box-shadow:0 8px 28px #0003;font-size:19px;line-height:1;pointer-events:none;transform:translate(-50%,-50%);transition:transform .25s ease,box-shadow .25s ease}
+.project-card:hover .project-play,.project-visual:focus-visible .project-play{box-shadow:0 10px 32px #0005;transform:translate(-50%,-50%) scale(1.08)}
+.project-visual.is-playing .project-play{opacity:0}
 .project-open{position:absolute;right:16px;top:16px;display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:var(--paper);color:var(--ink);transform:translateY(8px);opacity:0;transition:opacity .25s ease,transform .3s var(--ease)}
 .project-card:hover .project-open{opacity:1;transform:none}
 .project-placeholder{display:grid;place-content:center;gap:8px;width:100%;height:100%;padding:24px;text-align:center;background:radial-gradient(circle at 50% 30%,#ffffffb5,transparent 55%),linear-gradient(135deg,#ded7eb,#eee6d8);color:#4a3d58}
